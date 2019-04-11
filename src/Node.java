@@ -1,3 +1,5 @@
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import jade.core.AID;
@@ -7,14 +9,17 @@ public class Node extends Agent {
 	
 	Optional<AID> left, right;
 	Optional<Integer> value;
-	
+	public Map<Integer,AID> ids;
+
 	public void setup(){
-		//addBehaviour(new InsertNodeBehaviour(this));
+		ids = new HashMap<Integer, AID>();
+		value = Optional.empty();
+		left = Optional.empty();
+		right = Optional.empty();
+		addBehaviour(new FactoryBehaviour(this));
 	}
-// et il y aura RetrieveBehaviour
-	public void setValue(Integer value2) {
-		
+
+	public void setValue(Integer value2) {	
 		value = Optional.of(value2);
-		
 	}
 }

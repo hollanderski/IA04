@@ -6,7 +6,8 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
 public class DispatchBehaviour extends CyclicBehaviour {
-
+	static public int id = 0;
+	
 	public DispatchBehaviour(Agent a){
 		super.myAgent=a;
 	}
@@ -15,18 +16,20 @@ public class DispatchBehaviour extends CyclicBehaviour {
 	public void action() {
 		ACLMessage message = super.myAgent.receive(MessageTemplate.MatchPerformative(ACLMessage.REQUEST));
 		if(message!=null){
-			String par = message.getContent();
 			ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
-			request.setContent(par);
+			request.setContent(message.getContent());
 			request.addReceiver(((DispatchAgent) super.myAgent).getRoot());
-			//DFService.search()
+			request.setConversationId(Integer.toString(id++));
+			super.myAgent.send(request);
 		}
 		message = super.myAgent.receive(MessageTemplate.MatchPerformative(ACLMessage.INFORM));
+		if(message==null)
+			message = super.myAgent.receive(MessageTemplate.MatchPerformative(ACLMessage.PROPAGATE));
 		if(message!=null) {
 			ObjectMapper mapper = new ObjectMapper();
 			try {
 				Request r = mapper.readValue(message.getContent(), Request.class);
-				System.out.println(r.getResult());
+				System.out.println("Result:" + r.getAction() + " " + r.getValue() + " " + r.getResult() + " " + r.getFlag());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

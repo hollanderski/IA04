@@ -5,6 +5,7 @@ public class Request {
 	private String action;
 	private Integer value;
 	private String result;
+	private Boolean flag = false;
 	
 	public String getAction() {
 		return action;
@@ -23,6 +24,12 @@ public class Request {
 	}
 	public void setResult(String result) {
 		this.result = result;
+	}
+	public boolean getFlag() {
+		return flag;
+	}
+	public void setFlag(Boolean flag) {
+		this.flag = flag;
 	}
 	
 	
