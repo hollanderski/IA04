@@ -1,0 +1,4 @@
+main=false
+gui=false
+container-name = tdtp
+host=172.25.14.152
