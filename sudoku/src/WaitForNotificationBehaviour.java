@@ -22,14 +22,12 @@ public class WaitForNotificationBehaviour extends CyclicBehaviour {
 				ArrayList<String> analysts = mapper.readValue(message.getContent(), mapper.getTypeFactory().constructCollectionType(ArrayList.class, String.class));
 				int i = 0;
 				for (String analyst : analysts) {
-			
 					ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
 					msg.addReceiver(new AID(analyst, AID.ISLOCALNAME));
 					Cell[] cells = i < 9 ? ((Sudoku)super.myAgent).getLine(i) : i < 18 ? ((Sudoku)super.myAgent).getColumn(i-9) : ((Sudoku)super.myAgent).getSquare(i-18);
 					msg.setContent(mapper.writeValueAsString(cells));
 					
 					super.myAgent.addBehaviour(new WaitForMyAnalyseBehaviour(super.myAgent, msg, i));
-					
 					i++;
 					
 				}
