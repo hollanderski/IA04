@@ -10,26 +10,26 @@ public class Cell {
 	public Cell(int k){
 		this.setPossibleValues(new ArrayList<Integer>());
 		if (k != 0)
-			this.getPossibleValues().add(k);
+			this.possibleValues.add(k);
 		else
 			for (int i = 1; i<=9; i++)
-				this.getPossibleValues().add(i);
+				this.possibleValues.add(i);
 	}
 
 	
 	public int valueIfExists() {
-		if (getPossibleValues().size() == 1)
-			return getPossibleValues().get(0);
+		if (possibleValues.size() == 1)
+			return possibleValues.get(0);
 		else return 0;
 	}
 
 	public void update(Cell cell) {
-		getPossibleValues().retainAll(cell.getPossibleValues());
+		possibleValues.retainAll(cell.getPossibleValues());
 	}
 
 	public void remove(ArrayList<Integer> existingValues) {
 		if (getPossibleValues().size() == 1) return;
-		getPossibleValues().removeAll(existingValues);	
+		possibleValues.removeAll(existingValues);	
 	}
 
 
@@ -39,6 +39,6 @@ public class Cell {
 
 
 	public void setPossibleValues(ArrayList<Integer> possibleValues) {
-		this.possibleValues = possibleValues;
+		this.possibleValues = (ArrayList<Integer>) possibleValues.clone();
 	}
 }

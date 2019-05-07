@@ -15,25 +15,27 @@ public class Sudoku extends Agent {
 								};	
 	
 	public Cell[] getLine(int line) {
-		return sudoku[line];
+		Cell lin[] = new Cell[9];
+		for (int i = 0; i < 9; i++)
+			lin[i] = sudoku[line][i];
+		return lin;
 	}
-	
 	public Cell[] getColumn(int column) {
 		Cell col[] = new Cell[9];
 			for (int i = 0; i < 9; i++)
 				col[i] = sudoku[i][column];
 		return col;
 	}
-	
-	public Cell[] getSquare(int square) {
-		Cell col[] = new Cell[9];
+
+	public Cell[] getSquare(int square) {		
+		Cell sq[] = new Cell[9];
 		int squareLine = square/3;
 		int squareColumn = square%3;
 		int k = 0;
 		for (int i = 3*squareLine; i < 3*squareLine+3; i++)
 			for (int j = 3*squareColumn; j < 3*squareColumn+3; j++)
-				col[k++] = sudoku[i][j];
-		return col;
+				sq[k++] = sudoku[i][j];		
+		return sq;
 	}
 	
 	public void setup(){
@@ -51,9 +53,11 @@ public class Sudoku extends Agent {
 	}
 	
 	public void updateSquare(int i, Cell[] cells) {
-		for (int j=i%3; j<i%3+3; j++)
-			for (int k=3*(i%3); k<3*(i%3)+3; k++)
-				sudoku[j][k].update(cells[j]);
+		int m = 0;
+		for (int j=((int)(i/3))*3; j<((int)(i/3))*3+3; j++)
+			for (int k=3*(i%3); k<3*(i%3)+3; k++) {
+				sudoku[j][k].update(cells[m++]);
+			}
 	}
 
 	public void displaySudoku() {

@@ -1,1 +1,1 @@
-http://fassedou-hz-1.etu.utc:7778/acc
+http://192.168.0.101:7778/acc
