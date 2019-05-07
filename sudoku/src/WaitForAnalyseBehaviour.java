@@ -28,6 +28,21 @@ public class WaitForAnalyseBehaviour extends CyclicBehaviour {
 				}
 				for (Cell cell : cells)
 					cell.remove(existingValues);
+				for (Cell cell : cells) {
+					for(int value : cell.getPossibleValues()) {
+						boolean unique=true;
+						for(Cell item : cells) {
+							if(item.getPossibleValues().contains(value))
+								unique=false;
+						}
+						
+						if(unique) {
+							ArrayList<Integer> possibleValues = new ArrayList<Integer>();
+							possibleValues.add(value);
+							cell.setPossibleValues(possibleValues);
+						}
+					}
+				}
 				ACLMessage reply = msg.createReply();
 				reply.setContent(mapper.writeValueAsString(cells));
 				reply.setPerformative(ACLMessage.INFORM);
