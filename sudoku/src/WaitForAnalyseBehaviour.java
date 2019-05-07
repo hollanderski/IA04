@@ -32,6 +32,7 @@ public class WaitForAnalyseBehaviour extends CyclicBehaviour {
 					for(int value : cell.getPossibleValues()) {
 						boolean unique=true;
 						for(Cell item : cells) {
+							if(item==cell) continue;
 							if(item.getPossibleValues().contains(value))
 								unique=false;
 						}
